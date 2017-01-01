@@ -1,0 +1,57 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> makeVector <- function(x = numeric()) {
++ m <- NULL
++ set <- function(y) {
++ x <<- y
++ m <<- NULL
++ }
++ get <- function() x
++ setmean <- function(mean) m <<- mean
++ getmean <- function() m
++ list(set = set, get = get,
++ setmean = setmean,
++ getmean = getmean)
++ }
+> makeCacheMatrix
+Error: object 'makeCacheMatrix' not found
+> makeCacheMatrix <- function(x = matrix()) {
++ inv <- NULL
++ set <- function(y) {
++ x <<- y
++ inv <<- NULL
++ }
++ get <- function() x
++ setinverse <- function(inverse) inv <<- inverse
++ getinverse <- function() inv
++ list(set=set, get=get, setinverse=setinverse, getinverse=getinverse)
++ }
+> cacheSolve <- function(x, ...) {
++ inv <- x$getinverse()
++ if(!is.null(inv)) {
++ message("getting cached data.")
++ return(inv)
++ }
++ data <- x$get()
++ inv <- solve(data)
++ x$setinverse(inv)
++ inv
++ }
+> View(makeVector)
